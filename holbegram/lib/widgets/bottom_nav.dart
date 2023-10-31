@@ -19,6 +19,14 @@ class _BottomNavState extends State<BottomNav> {
   PageController _pageController = PageController();
 
   @override
+  void initState() {
+    _pageController = PageController(
+      initialPage: _currentIndex,
+    );
+    super.initState();
+  }
+
+  @override
   void dispose() {
     _pageController.dispose();
     super.dispose();
@@ -28,6 +36,12 @@ class _BottomNavState extends State<BottomNav> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
         children: [
           Feed(),
           Search(),
@@ -44,12 +58,17 @@ class _BottomNavState extends State<BottomNav> {
         onItemSelected: (index) {
           setState(() {
             _currentIndex = index;
+            _pageController.animateToPage(
+              index,
+              duration: const Duration(milliseconds: 600),
+              curve: Curves.ease,
+            );
           });
         },
         items: [
           itemBottom(icon: Icons.home, text: "Home"),
-          itemBottom(icon: Icons.home, text: "Home"),
-          itemBottom(icon: Icons.home, text: "Home"),
+          itemBottom(icon: Icons.search, text: "Search"),
+          itemBottom(icon: Icons.add, text: "add"),
           itemBottom(icon: Icons.home, text: "Home"),
           itemBottom(icon: Icons.home, text: "Home"),
         ],
@@ -68,6 +87,7 @@ BottomNavyBarItem itemBottom({
       text,
       style: const TextStyle(
         fontSize: 25,
+        fontFamily: "Billabong",
       ),
     ),
     activeColor: Colors.red,
