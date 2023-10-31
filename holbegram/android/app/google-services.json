@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "785885872149",
-    "project_id": "holbegram-f7c2b",
-    "storage_bucket": "holbegram-f7c2b.appspot.com"
+    "project_number": "958200356124",
+    "project_id": "holbegram-5318e",
+    "storage_bucket": "holbegram-5318e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:785885872149:android:91112d77ad890d00974e1c",
+        "mobilesdk_app_id": "1:958200356124:android:8d644d628e88a15edeaed9",
         "android_client_info": {
           "package_name": "com.example.holbegram"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "785885872149-c11o1gnn9a6ms5hnilnq2p14u04eqmfe.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDnkUs-XyKVlQJ60epLKxozsALmVdLY4_g"
+          "current_key": "AIzaSyAtB5xB1reOMlCXzTvC01JP-c3TedE5USc"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "785885872149-c11o1gnn9a6ms5hnilnq2p14u04eqmfe.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

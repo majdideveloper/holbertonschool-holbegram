@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:holbegram/methods/auth_methods.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddPicture extends StatefulWidget {
@@ -25,20 +26,26 @@ class AddPicture extends StatefulWidget {
 }
 
 class _AddPictureState extends State<AddPicture> {
-  XFile? _image;
+  Uint8List? _image;
 
   void selectImageFromGallery() async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-    setState(() {
-      _image = image;
-    });
+    if (image != null) {
+      final bytes = await image.readAsBytes();
+      setState(() {
+        _image = bytes;
+      });
+    }
   }
 
   void selectImageFromCamera() async {
     final image = await ImagePicker().pickImage(source: ImageSource.camera);
-    setState(() {
-      _image = image;
-    });
+    if (image != null) {
+      final bytes = await image.readAsBytes();
+      setState(() {
+        _image = bytes;
+      });
+    }
   }
 
   @override
@@ -70,7 +77,7 @@ class _AddPictureState extends State<AddPicture> {
                     const SizedBox(
                       height: 28,
                     ),
-                    const Text("Hello, John"),
+                    Text("Hello, ${widget.username}"),
                     const Text("choose imagee from gallery"),
                     const SizedBox(
                       height: 10,
@@ -87,9 +94,10 @@ class _AddPictureState extends State<AddPicture> {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: XFileImage(_image!),
-                              ),
+                                  fit: BoxFit.cover,
+                                  image: MemoryImage(
+                                      _image!) // XFileImage(_image!),
+                                  ),
                             )),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -114,7 +122,19 @@ class _AddPictureState extends State<AddPicture> {
                             Color.fromARGB(218, 226, 37, 24),
                           ),
                         ),
-                        onPressed: () async {},
+                        onPressed: () async {
+                          String resulat = await AuthMethods().signUpUser(
+                              email: widget.email,
+                              password: widget.password,
+                              username: widget.username,
+                              file: _image);
+
+                          if (resulat == "success") {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text(resulat),
+                            ));
+                          }
+                        },
                         child: Text(
                           'next',
                           style: TextStyle(

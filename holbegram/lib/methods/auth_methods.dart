@@ -44,11 +44,35 @@ class AuthMethods {
       Users users = Users(
         email: email,
         username: username,
+        uid: user!.uid,
+        bio: "",
+        photoUrl: "",
+        follwers: [],
+        follwing: [],
+        posts: [],
+        saved: [],
+        searchKey: "",
       );
       await _firestore.collection("users").doc(user!.uid).set(users.toJson());
       return "success";
     } catch (error) {
       return error.toString();
+    }
+  }
+
+  Future<Users?> getUserDetails() async {
+    try {
+      final user = _auth.currentUser;
+      if (user != null) {
+        final userDoc =
+            await _firestore.collection('users').doc(user.uid).get();
+        return Users.fromSnap(userDoc);
+      }
+      return null;
+    } catch (error) {
+      print(error.toString());
+
+      return null;
     }
   }
 }

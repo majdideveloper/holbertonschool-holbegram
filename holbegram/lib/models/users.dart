@@ -1,43 +1,43 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Users {
-  String? uid;
-  String? email;
-  String? username;
-  String? bio;
-  String? photoUrl;
-  List<dynamic>? follwers;
-  List<dynamic>? follwing;
-  List<dynamic>? posts;
-  List<dynamic>? saved;
-  String? searchKey;
+  String uid;
+  String email;
+  String username;
+  String bio;
+  String photoUrl;
+  List<dynamic> follwers;
+  List<dynamic> follwing;
+  List<dynamic> posts;
+  List<dynamic> saved;
+  String searchKey;
   Users({
-    this.uid,
-    this.email,
-    this.username,
-    this.bio,
-    this.photoUrl,
-    this.follwers,
-    this.follwing,
-    this.posts,
-    this.saved,
-    this.searchKey,
+    required this.uid,
+    required this.email,
+    required this.username,
+    required this.bio,
+    required this.photoUrl,
+    required this.follwers,
+    required this.follwing,
+    required this.posts,
+    required this.saved,
+    required this.searchKey,
   });
-  // static Users fromSnap(DocumentSnapshot snap) {
-  //   var snapshot = snap.data();
-  //   return Users(
-  //     uid: snapshot.data["uid"],
-  //     email: snapshot.data['email'],
-  //     username: snapshot.data['username'],
-  //     bio: snapshot.data['bio'],
-  //     photoUrl: snapshot.data['photoUrl'],
-  //     follwers: snapshot.data['follwers'],
-  //     follwing: snapshot.data['follwing'],
-  //     posts: snapshot.data['posts'],
-  //     saved: snapshot.data['saved'],
-  //     searchKey: snapshot.data['searchKey'],
-  //   );
-  // }
+  static Users fromSnap(DocumentSnapshot snap) {
+    var snapshot = snap.data() as Map<String, dynamic>;
+    return Users(
+      uid: snapshot["uid"],
+      email: snapshot['email'],
+      username: snapshot['username'],
+      bio: snapshot['bio'],
+      photoUrl: snapshot['photoUrl'],
+      follwers: snapshot['follwers'],
+      follwing: snapshot['follwing'],
+      posts: snapshot['posts'],
+      saved: snapshot['saved'],
+      searchKey: snapshot['searchKey'],
+    );
+  }
 
   Map<String, dynamic> toJson() {
     return {

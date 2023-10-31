@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:holbegram/methods/auth_methods.dart';
 import 'package:holbegram/screens/auth/login_screen.dart';
+import 'package:holbegram/screens/auth/upload_image_screen.dart';
 import 'package:holbegram/widgets/text_field.dart';
 
 class SignUp extends StatefulWidget {
@@ -148,21 +149,25 @@ class _SignUpState extends State<SignUp> {
 
                         String passwordConfirm = passwordConfirmController.text;
                         if (password == passwordConfirm) {
-                          String resulat = await AuthMethods().signUpUser(
-                              email: email,
-                              password: password,
-                              username: username);
+                          // String resulat = await AuthMethods().signUpUser(
+                          //     email: email,
+                          //     password: password,
+                          //     username: username);
 
-                          if (resulat == "success") {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => LoginScreen()));
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text(resulat),
-                            ));
-                          }
+                          // if (resulat == "success") {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AddPicture(
+                                        email: email,
+                                        password: password,
+                                        username: username,
+                                      )));
+                          // } else {
+                          //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          //     content: Text(resulat),
+                          //   ));
+                          // }
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text("tape password correct"),

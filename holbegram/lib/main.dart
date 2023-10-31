@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:holbegram/screens/auth/login_screen.dart';
 import 'package:holbegram/screens/auth/signup_screen.dart';
 import 'package:holbegram/screens/auth/upload_image_screen.dart';
+import 'package:holbegram/screens/home.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,11 +36,13 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: AddPicture(
-        email: "yassine@gmail.com",
-        password: "1111111",
-        username: "yassine",
-      ),
+      home: const Home(),
+      //LoginScreen(),
+      //  AddPicture(
+      //   email: "yassine@gmail.com",
+      //   password: "1111111",
+      //   username: "yassine",
+      // ),
       //const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
