@@ -18,9 +18,14 @@ class StorageMethods {
       String id = const Uuid().v1();
       ref = ref.child(id);
     }
-    UploadTask uploadTask = ref.putData(file);
+    UploadTask uploadTask = ref.putData(
+      file,
+      // importannnnnnnnnnntttttttttttt
+      SettableMetadata(contentType: 'image/png'),
+    );
     TaskSnapshot snapshot = await uploadTask;
     String downloadUrl = await snapshot.ref.getDownloadURL();
+    print(downloadUrl);
     return downloadUrl;
   }
 }

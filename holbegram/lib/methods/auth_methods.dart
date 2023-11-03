@@ -5,10 +5,20 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:holbegram/models/users.dart';
+import 'package:holbegram/screens/auth/methods/user_storage.dart';
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Future<String> logout() async {
+    try {
+      await _auth.signOut();
+      return "Ok";
+    } catch (error) {
+      return error.toString();
+    }
+  }
 
   Future<String> login({
     required String email,
@@ -38,22 +48,28 @@ class AuthMethods {
       return 'Please fill all the fields';
     }
     try {
+      String photoUrl = "";
       UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
+      if (file != null) {
+        photoUrl =
+            await StorageMethods().uploadImageToStorage(true, "users", file);
+      }
+
       User? user = userCredential.user;
       Users users = Users(
         email: email,
         username: username,
         uid: user!.uid,
         bio: "",
-        photoUrl: "",
-        follwers: [],
-        follwing: [],
+        photoUrl: photoUrl,
+        follwers: ["ha"],
+        follwing: ["ha"],
         posts: [],
         saved: [],
         searchKey: "",
       );
-      await _firestore.collection("users").doc(user!.uid).set(users.toJson());
+      await _firestore.collection("users").doc(user.uid).set(users.toJson());
       return "success";
     } catch (error) {
       return error.toString();
@@ -66,8 +82,10 @@ class AuthMethods {
       if (user != null) {
         final userDoc =
             await _firestore.collection('users').doc(user.uid).get();
+
         return Users.fromSnap(userDoc);
       }
+
       return null;
     } catch (error) {
       print(error.toString());

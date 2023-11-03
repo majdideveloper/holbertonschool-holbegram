@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:holbegram/methods/auth_methods.dart';
+import 'package:holbegram/providers/user_provider.dart';
 import 'package:holbegram/screens/auth/signup_screen.dart';
+import 'package:holbegram/screens/home.dart';
 import 'package:holbegram/widgets/text_field.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({super.key});
@@ -35,6 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -103,15 +107,22 @@ class _LoginScreenState extends State<LoginScreen> {
                         onPressed: () async {
                           String email = emailController.text;
                           String password = passwordController.text;
-                          String result = await AuthMethods()
+                          String resulat = await AuthMethods()
                               .login(email: email, password: password);
-                          if (result == 'success') {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text('Login successful'),
-                            ));
+                          if (resulat == "success") {
+                            await userProvider.refreshUser();
+
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(builder: (context) => Home()),
+                              ((route) => false),
+                            );
+                            // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            //   content: Text(resulat),
+                            //   ));
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text(result),
+                              content: Text(resulat),
                             ));
                           }
                         },

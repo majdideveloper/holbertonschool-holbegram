@@ -31,14 +31,15 @@ class Users {
       username: snapshot['username'],
       bio: snapshot['bio'],
       photoUrl: snapshot['photoUrl'],
-      follwers: snapshot['follwers'],
-      follwing: snapshot['follwing'],
-      posts: snapshot['posts'],
-      saved: snapshot['saved'],
+      follwers: snapshot['follwers'] ?? [],
+      follwing: snapshot['follwing'] ?? [],
+      posts: snapshot['posts'] ?? [],
+      saved: snapshot['saved'] ?? [],
       searchKey: snapshot['searchKey'],
     );
   }
 
+//((data['softskills'] ?? []) as List)
   Map<String, dynamic> toJson() {
     return {
       'uid': uid,

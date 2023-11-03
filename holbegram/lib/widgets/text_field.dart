@@ -6,6 +6,7 @@ class TextFieldInput extends StatelessWidget {
   bool isPassword;
   String hintText;
   Widget? suffixIcon;
+  Widget? prefixIcon;
   TextInputType keyboardType;
   TextFieldInput({
     Key? key,
@@ -13,6 +14,7 @@ class TextFieldInput extends StatelessWidget {
     required this.isPassword,
     required this.hintText,
     this.suffixIcon,
+    this.prefixIcon,
     required this.keyboardType,
   }) : super(key: key);
 
@@ -36,6 +38,7 @@ class TextFieldInput extends StatelessWidget {
         filled: true,
         contentPadding: const EdgeInsets.all(8),
         suffixIcon: suffixIcon,
+        prefixIcon: prefixIcon,
       ),
       textInputAction: TextInputAction.next,
       obscureText: isPassword,

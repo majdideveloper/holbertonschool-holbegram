@@ -7,7 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:holbegram/methods/auth_methods.dart';
+import 'package:holbegram/providers/user_provider.dart';
+import 'package:holbegram/screens/home.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class AddPicture extends StatefulWidget {
   final String email;
@@ -50,6 +53,7 @@ class _AddPictureState extends State<AddPicture> {
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -130,9 +134,16 @@ class _AddPictureState extends State<AddPicture> {
                               file: _image);
 
                           if (resulat == "success") {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text(resulat),
-                            ));
+                            await userProvider.refreshUser();
+
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(builder: (context) => Home()),
+                              ((route) => false),
+                            );
+                            // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            //   content: Text(resulat),
+                            //   ));
                           }
                         },
                         child: Text(

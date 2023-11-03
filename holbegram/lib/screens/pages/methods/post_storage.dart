@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:holbegram/models/posts.dart';
 import 'package:holbegram/screens/auth/methods/user_storage.dart';
+import 'package:uuid/uuid.dart';
 
 class PostStorage {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -14,11 +15,12 @@ class PostStorage {
     Uint8List image,
   ) async {
     try {
+      String id = const Uuid().v1();
       final String postUrl =
           await StorageMethods().uploadImageToStorage(true, "posts", image);
       Post post = Post(
           caption: caption,
-          uid: uid,
+          uid: id,
           username: username,
           likes: [],
           postId: uid,
@@ -27,8 +29,28 @@ class PostStorage {
           profImage: profImage);
 
       await _firestore.collection("posts").doc(post.uid).set(post.toJson());
-      return "ok";
+      await _firestore.collection("users").doc(uid).update({
+        'posts': FieldValue.arrayUnion([id]),
+      });
+      return "Ok";
     } catch (error) {
+      return error.toString();
+    }
+  }
+
+  Future<String> addToFavorite({
+    required String idPost,
+    required String idUser,
+  }) async {
+    try {
+      print(idPost);
+      print(idUser);
+      await _firestore.collection("users").doc(idUser).update({
+        'saved': FieldValue.arrayUnion([idPost]),
+      });
+      return "OK";
+    } catch (error) {
+      print('Error deleting post: $error');
       return error.toString();
     }
   }

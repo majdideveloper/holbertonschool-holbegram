@@ -66,11 +66,11 @@ class _BottomNavState extends State<BottomNav> {
           });
         },
         items: [
-          itemBottom(icon: Icons.home, text: "Home"),
+          itemBottom(icon: Icons.home_outlined, text: "Home"),
           itemBottom(icon: Icons.search, text: "Search"),
-          itemBottom(icon: Icons.add, text: "add"),
-          itemBottom(icon: Icons.home, text: "Home"),
-          itemBottom(icon: Icons.home, text: "Home"),
+          itemBottom(icon: Icons.add, text: "Add"),
+          itemBottom(icon: Icons.heart_broken_outlined, text: "Favorite"),
+          itemBottom(icon: Icons.person_2_outlined, text: "Profile"),
         ],
       ),
     );

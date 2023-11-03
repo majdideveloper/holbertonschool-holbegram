@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Post {
   String caption;
   String uid;
@@ -19,12 +21,26 @@ class Post {
     required this.profImage,
   });
 
+  static Post fromSnap(DocumentSnapshot snap) {
+    var snapshot = snap.data() as Map<String, dynamic>;
+    return Post(
+      caption: snapshot['caption'] as String,
+      uid: snapshot['uid'] as String,
+      username: snapshot['username'] as String,
+      likes: snapshot['likes'] ?? [],
+      postId: snapshot['postId'] as String,
+      datePublished: DateTime.parse(snapshot['datePublished'] as String),
+      postUrl: snapshot['postUrl'] as String,
+      profImage: snapshot['profImage'] as String,
+    );
+  }
+
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(
       caption: json['caption'] as String,
       uid: json['uid'] as String,
       username: json['username'] as String,
-      likes: json['likes'] as List<dynamic>,
+      likes: json['likes'] ?? [],
       postId: json['postId'] as String,
       datePublished: DateTime.parse(json['datePublished'] as String),
       postUrl: json['postUrl'] as String,
