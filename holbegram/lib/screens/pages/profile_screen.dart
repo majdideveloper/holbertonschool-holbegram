@@ -99,7 +99,7 @@ class Profile extends StatelessWidget {
           SizedBox(
             height: 300,
             child: FutureBuilder(
-              future: getPosts(),
+              future: getPosts().then((value) => postsIds = value ?? []),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
@@ -163,14 +163,17 @@ class Profile extends StatelessWidget {
     );
   }
 
-  Future<List<DocumentSnapshot>> getPosts() async {
+  Future<List<DocumentSnapshot>?> getPosts() async {
     final firestore = FirebaseFirestore.instance;
     final collection = firestore.collection('posts');
-
-    // Query Firestore to fetch specific posts by their IDs
-    final query = collection.where(FieldPath.documentId, whereIn: postsIds);
-    final querySnapshot = await query.get();
-
-    return querySnapshot.docs;
+    if (postsIds.isNotEmpty) {
+      // Query Firestore to fetch specific posts by their IDs
+      final query = collection.where(FieldPath.documentId, whereIn: postsIds);
+      final querySnapshot = await query.get();
+      return querySnapshot.docs;
+    } else {
+      // final querySnapshot = await collection.get();
+      return null; //querySnapshot.docs;
+    }
   }
 }

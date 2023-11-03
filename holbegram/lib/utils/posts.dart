@@ -134,7 +134,7 @@ class _PostsState extends State<Posts> {
                                 }
                               },
                               icon: Icon(Icons.save),
-                            )
+                            ),
                           ],
                         ),
                         if (post.likes.length == 0)
