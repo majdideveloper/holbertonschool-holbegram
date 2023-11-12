@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:holbegram/providers/user_provider.dart';
 import 'package:holbegram/screens/auth/login_screen.dart';
 
-import 'package:holbegram/screens/home.dart';
 import 'package:provider/provider.dart';
 
 Future main() async {

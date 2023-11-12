@@ -53,13 +53,7 @@ git clone git@github.com:majdideveloper/holbertonschool-holbegram.git
 ## App Screenshot
 
 
-<img src="assets/screenshot/screenshot1.png" width="250">
-<img src="assets/screenshot/screenshot2.png" width="250">
-<img src="assets/screenshot/screenshot3.png" width="250">
-<img src="assets/screenshot/screenshot4.png" width="250">
-<img src="assets/screenshot/screenshot5.png" width="250">
-<img src="assets/screenshot/screenshot6.png" width="250">
-<img src="assets/screenshot/screenshot7.png" width="250">
+<img src="assets/screenshot/screenshot1.png" width="250"><img src="assets/screenshot/screenshot2.png" width="250"><img src="assets/screenshot/screenshot3.png" width="250"><img src="assets/screenshot/screenshot4.png" width="250"><img src="assets/screenshot/screenshot5.png" width="250"><img src="assets/screenshot/screenshot6.png" width="250"><img src="assets/screenshot/screenshot7.png" width="250">
 
 
 ## Video
