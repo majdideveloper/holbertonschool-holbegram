@@ -2,8 +2,9 @@
 
 
   
-  <center><h1>Holbegram</h1>
-  <img src="assets/screenshot/holbegram.png" >
+  <center>
+    <h1>Holbegram</h1>
+    <img src="assets/screenshot/holbegram.png" >
   </center>
   
   
